@@ -16,6 +16,7 @@ services:
       - ASPNETCORE_URLS=http://+:8080;https://+:8081
       # Usar SQLite para desenvolvimento local
       - ConnectionStrings__LocalDb=Data Source=./data/hack.db
+      - ConnectionStrings__ProdutosDb=Server=dbhackathon.database.windows.net,1433;Database=hack;User ID=hack;Password=Password23;Encrypt=True;TrustServerCertificate=True;MultipleActiveResultSets=True;Connection Timeout=30;
     networks:
       - hackathon-network
     volumes:
@@ -24,11 +25,11 @@ services:
       - ./HackathonMonolito:/app/source
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      test: ["CMD", "curl", "-f", "-k", "https://localhost:8081/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 60s
 
 volumes:
   app_data:

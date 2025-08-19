@@ -46,6 +46,8 @@
 **/LICENSE
 **/CHANGELOG.md
 **/docs
+**/DOCKER-SETUP.md
+**/README-Docker.md
 
 # Arquivos de teste
 **/test
@@ -79,3 +81,7 @@
 **/data
 **/identifier.sqlite
 **/global.json
+
+# Scripts de build
+**/docker-build.sh
+**/docker-dev.sh
