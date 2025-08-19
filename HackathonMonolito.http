@@ -1,0 +1,6 @@
+@HackathonMonolito_HostAddress = http://localhost:5187
+
+GET {{HackathonMonolito_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
