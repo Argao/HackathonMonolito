@@ -1,0 +1,81 @@
+﻿# Arquivos de controle de versão
+**/.git
+**/.gitignore
+**/.gitattributes
+
+# Arquivos de IDE e editores
+**/.vs
+**/.vscode
+**/.idea
+**/*.user
+**/*.suo
+**/*.userosscache
+**/*.sln.docstates
+
+# Arquivos de build e binários
+**/bin
+**/obj
+**/out
+**/target
+**/*.dll
+**/*.exe
+**/*.pdb
+
+# Arquivos de dependências
+**/node_modules
+**/npm-debug.log
+**/yarn-debug.log
+**/yarn-error.log
+
+# Arquivos de configuração local
+**/.env
+**/.env.local
+**/.env.development
+**/.env.test
+**/.env.production
+**/appsettings.Development.json
+**/appsettings.Local.json
+
+# Arquivos de Docker
+**/Dockerfile*
+**/docker-compose*
+**/.dockerignore
+
+# Arquivos de documentação
+**/README.md
+**/LICENSE
+**/CHANGELOG.md
+**/docs
+
+# Arquivos de teste
+**/test
+**/tests
+**/*.test.*
+**/*.spec.*
+
+# Arquivos temporários
+**/tmp
+**/temp
+**/*.tmp
+**/*.temp
+
+# Arquivos de log
+**/logs
+**/*.log
+
+# Arquivos de backup
+**/*.bak
+**/*.backup
+
+# Arquivos de cache
+**/.cache
+**/cache
+
+# Arquivos de sistema
+**/.DS_Store
+**/Thumbs.db
+
+# Arquivos específicos do projeto
+**/data
+**/identifier.sqlite
+**/global.json

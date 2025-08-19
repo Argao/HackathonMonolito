@@ -1,0 +1,39 @@
+services:
+  # .NET Application - Development
+  hackathonmonolito:
+    image: hackathonmonolito:dev
+    container_name: hackathon-app-dev
+    build:
+      context: .
+      dockerfile: HackathonMonolito/Dockerfile
+      args:
+        BUILD_CONFIGURATION: Debug
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080;https://+:8081
+      # Usar SQLite para desenvolvimento local
+      - ConnectionStrings__LocalDb=Data Source=./data/hack.db
+    networks:
+      - hackathon-network
+    volumes:
+      - app_data:/app/data
+      # Volume para hot reload (opcional)
+      - ./HackathonMonolito:/app/source
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  app_data:
+    driver: local
+
+networks:
+  hackathon-network:
+    driver: bridge 
