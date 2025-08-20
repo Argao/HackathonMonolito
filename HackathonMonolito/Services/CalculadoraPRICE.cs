@@ -10,36 +10,34 @@ public class CalculadoraPRICE : ICalculadoraAmortizacao
     
     public ResultadoSimulacao Calcular(decimal valorPrincipal, decimal taxaMensal, int prazo)
     {
-        var resultado = new ResultadoSimulacao
-        {
-            Tipo = Tipo
-        };
+        // calcula a prestação fixa usando o saldo original e o prazo total
+        decimal fator = (decimal)Math.Pow((double)(1 + taxaMensal), prazo);
+        decimal valorParcela = decimal.Round(
+            valorPrincipal * taxaMensal * fator / (fator - 1),
+            2,
+            MidpointRounding.AwayFromZero);
 
-        var debitoAtual = valorPrincipal;
-        
-        for (var i = 1; i <= prazo; i++)
+        var resultado = new ResultadoSimulacao { Tipo = SistemaAmortizacao.PRICE };
+        decimal saldoDevedor = valorPrincipal;
+
+        for (int parcela = 1; parcela <= prazo; parcela++)
         {
-            var valorParcela = CalcularParcela(debitoAtual, taxaMensal, prazo - i + 1);
-            var juros = Math.Round(debitoAtual * taxaMensal, 2);
-            var amortizacao = valorParcela - juros;
-            
+            // juros do mês com arredondamento financeiro
+            decimal juros = decimal.Round(saldoDevedor * taxaMensal, 2, MidpointRounding.AwayFromZero);
+            // amortização é a diferença entre a prestação e os juros
+            decimal amortizacao = decimal.Round(valorParcela - juros, 2, MidpointRounding.AwayFromZero);
+            // atualiza o saldo devedor mantendo mais casas decimais para evitar erros acumulados
+            saldoDevedor = decimal.Round(saldoDevedor - amortizacao, 2, MidpointRounding.AwayFromZero);
+
             resultado.Parcelas.Add(new Parcela
             {
-                IdResultado = resultado.IdResultado,
-                Numero = i,
+                Numero = parcela,
                 ValorPrestacao = valorParcela,
                 ValorAmortizacao = amortizacao,
-                ValorJuros = juros
+                ValorJuros = juros,
             });
-            debitoAtual -= amortizacao;
         }
-
         return resultado;
     }
 
-    private decimal CalcularParcela(decimal debitoAtual, decimal taxaMensal, int numParcela)
-    {
-        var fator = (decimal)Math.Pow((double)(1 + taxaMensal), -numParcela);
-        return Math.Round(debitoAtual * taxaMensal / (1 - fator),2);
-    }
 }
