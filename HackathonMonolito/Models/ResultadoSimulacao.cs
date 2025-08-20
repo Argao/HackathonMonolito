@@ -12,4 +12,6 @@ public class ResultadoSimulacao
     public SistemaAmortizacao Tipo { get; set; }
     public Simulacao Simulacao { get; set; } = null!;
     public ICollection<Parcela> Parcelas { get; set; } = new List<Parcela>();
+    
+    public decimal ValorTotal { get; set; }
 }

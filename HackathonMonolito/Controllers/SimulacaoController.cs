@@ -21,4 +21,14 @@ public class SimulacaoController(ISimulacaoService simulacaoService)  : Controll
         return Ok(response);
     }
 
+    [HttpGet]
+    public async Task<ActionResult<PagedResponse<ListarSimulacoesDTO>>> ListarSimulacoes(
+        [FromQuery] PagedRequest request, 
+        CancellationToken ct)
+    {
+        var response = await simulacaoService.ListarPaginadoAsync(request, ct);
+        return Ok(response);
+    }
+
+
 }

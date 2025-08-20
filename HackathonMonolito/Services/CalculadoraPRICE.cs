@@ -16,9 +16,11 @@ public class CalculadoraPRICE : ICalculadoraAmortizacao
             valorPrincipal * taxaMensal * fator / (fator - 1),
             2,
             MidpointRounding.AwayFromZero);
-
+        var valorParcelaTotal = valorParcela * prazo;
+        
         var resultado = new ResultadoSimulacao { Tipo = SistemaAmortizacao.PRICE };
         decimal saldoDevedor = valorPrincipal;
+       
 
         for (int parcela = 1; parcela <= prazo; parcela++)
         {
@@ -37,6 +39,7 @@ public class CalculadoraPRICE : ICalculadoraAmortizacao
                 ValorJuros = juros,
             });
         }
+        resultado.ValorTotal = valorParcelaTotal;
         return resultado;
     }
 

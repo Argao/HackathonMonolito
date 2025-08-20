@@ -17,6 +17,8 @@ public class CalculadoraSAC : ICalculadoraAmortizacao
             2,
             MidpointRounding.AwayFromZero);
 
+        decimal valorTotalParcela = 0;
+
         for (int parcela = 1; parcela <= prazo; parcela++)
         {
             // juros do mês
@@ -25,7 +27,9 @@ public class CalculadoraSAC : ICalculadoraAmortizacao
             decimal valorPrestacao = decimal.Round(amortizacaoConstante + juros, 2, MidpointRounding.AwayFromZero);
             // diminui o saldo devedor apenas pela amortização
             saldoDevedor = decimal.Round(saldoDevedor - amortizacaoConstante, 2, MidpointRounding.AwayFromZero);
-
+            
+            valorTotalParcela += valorPrestacao;
+            
             resultado.Parcelas.Add(new Parcela
             {
                 Numero = parcela,
@@ -34,6 +38,7 @@ public class CalculadoraSAC : ICalculadoraAmortizacao
                 ValorJuros = juros,
             });
         }
+        resultado.ValorTotal = valorTotalParcela;
         return resultado;
     }
 }

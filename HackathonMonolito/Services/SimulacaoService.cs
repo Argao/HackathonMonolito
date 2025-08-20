@@ -35,6 +35,32 @@ public class SimulacaoService : ISimulacaoService
         return CriarResponseDto(simulacao);
     }
     
+    public async Task<PagedResponse<ListarSimulacoesDTO>> ListarPaginadoAsync(PagedRequest request, CancellationToken ct)
+    {
+        var simulacoesPaginadas = await _simulacaoRepository.ListarPaginadoAsync(request, ct);
+    
+        var dtos = simulacoesPaginadas.Data.Select(s => new ListarSimulacoesDTO
+        {
+            Id = s.IdSimulacao,
+            ValorDesejado = s.ValorDesejado,
+            PrazoMeses = s.PrazoMeses,
+            ResultadoSimulacao = s.Resultados?.Select(r => new ValorTotalParcelasDTO
+            {
+                Tipo = r.Tipo,
+                ValorTotal = r.ValorTotal
+            }).ToList() ?? new List<ValorTotalParcelasDTO>()
+        }).ToList();
+
+        return new PagedResponse<ListarSimulacoesDTO>
+        {
+            Data = dtos,
+            TotalRecords = simulacoesPaginadas.TotalRecords,
+            PageNumber = simulacoesPaginadas.PageNumber,
+            PageSize = simulacoesPaginadas.PageSize
+        };
+    }
+
+    
     private static Simulacao CriarSimulacao(SimulacaoRequestDTO request, Produto produto)
     {
         return new Simulacao

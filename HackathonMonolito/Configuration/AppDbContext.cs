@@ -92,6 +92,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                 .HasColumnName("TP_SISTEMA_AMORTIZACAO")
                 .HasConversion<int>()
                 .IsRequired();
+            entity.Property(e => e.ValorTotal)
+                .HasColumnName("VR_TOTAL")
+                .HasColumnType("decimal(18,2)");
             
             // Relacionamento com Simulacao
             entity.HasOne(e => e.Simulacao)
@@ -140,7 +143,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                 .HasColumnName("VR_JUROS")
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
-            
             // Relacionamento com ResultadoSimulacao
             entity.HasOne(e => e.Resultado)
                 .WithMany(r => r.Parcelas)

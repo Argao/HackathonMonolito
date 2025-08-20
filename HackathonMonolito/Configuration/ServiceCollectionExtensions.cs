@@ -27,7 +27,9 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<AppDbContext>(options =>
         {
             options.UseSqlite(connectionStringLocal);
+        
         });
+        
 
         //Repositories
         services.AddScoped<IProdutoRepository, SqlServerProdutoRepository>();
