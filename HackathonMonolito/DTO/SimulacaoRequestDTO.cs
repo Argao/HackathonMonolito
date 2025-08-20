@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace HackathonMonolito.DTO;
@@ -9,7 +10,7 @@ public class SimulacaoRequestDTO
 
     [SwaggerSchema(Description = "Valor desejado do empréstimo")]
     [DefaultValue(900.00)]
-    [System.Text.Json.Serialization.JsonPropertyName("valorDesejado")]
+    [JsonPropertyName("valorDesejado")]
     [Required(ErrorMessage = "Valor é obrigatório")]
     [Range(0.01, 9999999999999999.99, ErrorMessage = "Valor deve estar entre 0.01 e 9999999999999999.99")]
     [RegularExpression(@"^\d{1,16}([.,]\d{1,2})?$",
@@ -18,7 +19,7 @@ public class SimulacaoRequestDTO
 
     [SwaggerSchema(Description = "Prazo em meses")]
     [DefaultValue(5)]
-    [System.Text.Json.Serialization.JsonPropertyName("prazo")]
+    [JsonPropertyName("prazo")]
     [Required(ErrorMessage = "Prazo é obrigatório")]
     [Range(1, int.MaxValue, ErrorMessage = "Prazo deve ser maior que zero")]
     public int Prazo { get; set; } 

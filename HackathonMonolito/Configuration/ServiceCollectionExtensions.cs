@@ -1,6 +1,8 @@
 ﻿using System.Data;
 using HackathonMonolito.Repositories;
 using HackathonMonolito.Repositories.Interfaces;
+using HackathonMonolito.Services;
+using HackathonMonolito.Services.Interfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,7 +29,17 @@ public static class ServiceCollectionExtensions
             options.UseSqlite(connectionStringLocal);
         });
 
+        //Repositories
         services.AddScoped<IProdutoRepository, SqlServerProdutoRepository>();
+        services.AddScoped<ISimulacaoRepository, SimulacaoRepository>();
+        
+        //Services
+        services.AddScoped<ISimulacaoService, SimulacaoService>();
+        
+        
+        // Calculadoras
+        services.AddScoped<ICalculadoraAmortizacao, CalculadoraSAC>();
+        services.AddScoped<ICalculadoraAmortizacao, CalculadoraPRICE>();
 
         return services;
     }

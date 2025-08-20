@@ -7,7 +7,7 @@ namespace HackathonMonolito.Models;
 [Table("SIMULACAO")]
 public sealed class Simulacao
 {
-    public Guid IdSimulacao { get; set; } = Guid.NewGuid();
+    public Guid IdSimulacao { get; init; } = Guid.NewGuid();
     public int CodigoProduto { get; set; }
     public string DescricaoProduto { get; set; } = string.Empty;
     public decimal TaxaJuros { get; set; }
